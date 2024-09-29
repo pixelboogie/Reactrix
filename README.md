@@ -15,9 +15,6 @@ To mock out backend APIs
 https://miragejs.com/docs/getting-started/installation/
 npm install --save-dev miragejs
 
-
-Added Vans page
-
 ------------------------
 
 
