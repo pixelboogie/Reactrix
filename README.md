@@ -1,11 +1,29 @@
 # React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 
-To get started:
 
-Copy the parent directory of this file.
+
+
+Installed 
+react-router-dom
+
+------------------------
+
+Installed Mirage (mock server)
+To mock out backend APIs
+https://miragejs.com/docs/getting-started/installation/
+npm install --save-dev miragejs
+
+
+Added Vans page
+
+------------------------
+
+
+
+
+-------------------------------------------
 
 Open Terminal (not powershell, etc.)
 
@@ -27,8 +45,4 @@ Open a browser to the localhost url provided in terminal.
 
 
 -------------------------
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+END
