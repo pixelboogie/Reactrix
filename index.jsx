@@ -6,32 +6,31 @@ import About from "./pages/About"
 import Vans from "./pages/Vans/Vans"
 import VanDetail from "./pages/Vans/VanDetail"
 import Login from "./pages/Login"
-import Layout from "../components/Layout"
 import Dashboard from "./pages/Host/Dashboard"
+import Income from "./pages/Host/Income"
+import Reviews from "./pages/Host/Reviews"
 import HostVans from "./pages/Host/HostVans"
 import HostVanDetail from "./pages/Host/HostVanDetail"
 import HostVanInfo from "./pages/Host/HostVanInfo"
 import HostVanPricing from "./pages/Host/HostVanPricing"
 import HostVanPhotos from "./pages/Host/HostVanPhotos"
-import Income from "./pages/Host/Income"
-import Reviews from "./pages/Host/Reviews"
-import HostLayout from "../components/HostLayout"
 import NotFound from "./pages/NotFound"
-import AuthRequired from "../components/AuthRequired"
+import Layout from "./components/Layout"
+import HostLayout from "./components/HostLayout"
+import AuthRequired from "./components/AuthRequired"
 
-
-import "../server"
-
+import "./server"
 
 function App() {
+
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Home />}/>
-          <Route path="about" element={<About />}/>
-          <Route path="vans" element={<Vans />}/>
-          <Route path="vans/:id" element={<VanDetail />}/>
+          <Route index element={<Home />} />
+          <Route path="about" element={<About />} />
+          <Route path="vans" element={<Vans />} />
+          <Route path="vans/:id" element={<VanDetail />} />
           <Route
             path="login"
             element={<Login />}
@@ -51,7 +50,7 @@ function App() {
             </Route>
           </Route>
 
-          <Route path="*" element={<NotFound />}/>
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>
