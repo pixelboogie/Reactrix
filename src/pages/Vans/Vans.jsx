@@ -6,16 +6,18 @@ import { getVans } from "../../../api"
 export default function Vans() {
 
     const [searchParams, setSearchParams] = useSearchParams();
-
     const [vans, setVans] = useState([])
+    const [loading, setLoading] = React.useState(false)
 
     const typeFilter = searchParams.get("type")
     console.log(searchParams.toString())
 
     useEffect(() => {
         async function loadVans() {
+            setLoading(true)
             const data = await getVans()
             setVans(data)
+            setLoading(false)
         }
         loadVans()
 }, [])
@@ -49,6 +51,10 @@ export default function Vans() {
             }
             return prevParams
         })
+    }
+
+    if (loading) {
+        return <h1>Loading...</h1>
     }
 
     return (
