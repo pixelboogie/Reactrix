@@ -5,22 +5,28 @@ import { getVans } from "../../../api"
 
 export default function Vans() {
 
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams()
     const [vans, setVans] = useState([])
-    const [loading, setLoading] = React.useState(false)
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(null)
 
     const typeFilter = searchParams.get("type")
-    console.log(searchParams.toString())
 
     useEffect(() => {
         async function loadVans() {
             setLoading(true)
-            const data = await getVans()
-            setVans(data)
-            setLoading(false)
+            try {
+                const data = await getVans()
+                setVans(data)
+            } catch (err) {
+                setError(err)
+            } finally {
+                setLoading(false)
+            }
         }
+
         loadVans()
-}, [])
+    }, [])
 
     const displayedVans = typeFilter
         ? vans.filter(van => van.type === typeFilter)
@@ -28,10 +34,13 @@ export default function Vans() {
 
     const vanElements = displayedVans.map(van => (
         <div key={van.id} className="van-tile">
-            <Link to={van.id} state={{ 
-                    search: `?${searchParams.toString()}`, 
-                    type: typeFilter 
-                }}>
+            <Link
+                to={van.id}
+                state={{
+                    search: `?${searchParams.toString()}`,
+                    type: typeFilter
+                }}
+            >
                 <img src={van.imageUrl} />
                 <div className="van-info">
                     <h3>{van.name}</h3>
@@ -55,6 +64,9 @@ export default function Vans() {
 
     if (loading) {
         return <h1>Loading...</h1>
+    }
+    if (error) {
+        return <h1>There was an error: {error}</h1>
     }
 
     return (
