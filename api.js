@@ -1,24 +1,54 @@
-// A function whose only purpose is to delay execution
-// for the specified # of milliseconds when used w/ `await`
-// e.g. inside an async function:
-// await sleep(2000)  => pauses the function for 2 seconds before moving on
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(() => resolve(), ms))
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, doc, getDocs, getDoc } from "firebase/firestore/lite"
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCebYkr57wh1jiOacYEkrfplyBat4vEoU4",
+  authDomain: "reactrix-18a43.firebaseapp.com",
+  projectId: "reactrix-18a43",
+  storageBucket: "reactrix-18a43.appspot.com",
+  messagingSenderId: "353956522116",
+  appId: "1:353956522116:web:5a6da73cc71974b6fafad1"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app)
+
+// Refactoring the fetching functions below
+const vansCollectionRef = collection(db, "vans")
+
+export async function getVans() {
+    const snapshot = await getDocs(vansCollectionRef)
+    const vans = snapshot.docs.map(doc => ({
+        ...doc.data(),
+        id: doc.id
+    }))
+    return vans
 }
 
-export async function getVans(id) {
-    const url = id ? `/api/vans/${id}` : "/api/vans"
-    const res = await fetch(url)
-    if (!res.ok) {
-        throw {
-            message: "Failed to fetch vans",
-            statusText: res.statusText,
-            status: res.status
-        }
+export async function getVan(id) {
+    const docRef = doc(db, "vans", id)
+    const snapshot = await getDoc(docRef)
+    return {
+        ...snapshot.data(),
+        id: snapshot.id
     }
-    const data = await res.json()
-    return data.vans
 }
+
+
+// export async function getVans(id) {
+//     const url = id ? `/api/vans/${id}` : "/api/vans"
+//     const res = await fetch(url)
+//     if (!res.ok) {
+//         throw {
+//             message: "Failed to fetch vans",
+//             statusText: res.statusText,
+//             status: res.status
+//         }
+//     }
+//     const data = await res.json()
+//     return data.vans
+// }
 
 export async function getHostVans(id) {
     const url = id ? `/api/host/vans/${id}` : "/api/host/vans"
